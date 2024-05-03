@@ -1,6 +1,6 @@
 import express from 'express';
 import Joi from 'joi';
-import {getAllContacts, getOneContact, deleteContact, createContact, updateContact, } from './contactsServices.js';
+import {getAllContact, getOneContact, deleteContact, createContact, updateContact, } from './contactsServices.js';
 import HttpError from './HttpError.js';
 import validateBody from './validateBody.js';
 
@@ -16,7 +16,7 @@ const addContactSchema = Joi.object({
     phone: Joi.string(),
   }).min(1);
 
-export const getAllContacts = async (req, res, next) => {
+export const getAllContact = async (req, res, next) => {
     try {
         const contacts = await contactsService.listContacts();
         res.status(200).json(contacts);
