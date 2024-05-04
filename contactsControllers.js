@@ -1,6 +1,6 @@
 import express from 'express';
 import Joi from 'joi';
-import {getAllContact, getOneContact, deleteContact, createContact, updateContact, } from './contactsServices.js';
+import {listContacts, getContactById, addContact, removeContact} from './contactsServices.js';
 import HttpError from './HttpError.js';
 import validateBody from './validateBody.js';
 
@@ -16,9 +16,9 @@ const addContactSchema = Joi.object({
     phone: Joi.string(),
   }).min(1);
 
-export const getAllContact = async (req, res, next) => {
+export const getAllContacts = async (req, res, next) => {
     try {
-        const contacts = await contactsService.listContacts();
+        const contacts = await listContacts();
         res.status(200).json(contacts);
       } catch (error) {
         next(HttpError(500, 'Error fetching contacts'));
@@ -28,7 +28,7 @@ export const getAllContact = async (req, res, next) => {
 export const getOneContact = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const contact = await contactsService.getContactById(id);
+        const contact = await getContactById(id);
         if (contact) {
           res.status(200).json(contact);
         } else {
@@ -42,7 +42,7 @@ export const getOneContact = async (req, res, next) => {
 export const deleteContact = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const removedContact = await contactsService.removeContact(id);
+        const removedContact = await removeContact(id);
         if (removedContact) {
           res.status(200).json(removedContact);
         } else {
@@ -60,7 +60,7 @@ export const createContact = async (req, res, next) => {
           throw HttpError(400, 'All fields are required');
         }
     
-        const newContact = await contactsService.addContact(name, email, phone);
+        const newContact = await addContact(name, email, phone);
         res.status(201).json(newContact);
       } catch (error) {
         next(HttpError(500, 'Error creating contact'));
