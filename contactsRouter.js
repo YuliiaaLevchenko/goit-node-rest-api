@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  getAllContact,
+  getAllContacts,
   getOneContact,
   deleteContact,
   createContact,
@@ -9,7 +9,7 @@ import {
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", getAllContact);
+contactsRouter.get("/", getAllContacts);
 
 contactsRouter.get("/:id", getOneContact);
 
