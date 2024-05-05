@@ -47,7 +47,7 @@ async function listContacts() {
 return null; 
     }
 
-    module.exports = {
+    export default {
         listContacts,
         getContactById,
         addContact,
