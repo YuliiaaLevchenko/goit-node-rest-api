@@ -1,6 +1,6 @@
 import express from 'express';
 import Joi from 'joi';
-import {listContacts, getContactById, addContact, removeContact} from '../services/contactsServices.js';
+import {listContacts, getContactById, addContact, removeContact, updateContact} from '../services/contactsServices.js';
 
 import HttpError from '../helpers/HttpError.js';
 import validateBody from '../helpers/validateBody.js';

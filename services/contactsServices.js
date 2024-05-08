@@ -1,7 +1,7 @@
-const fs = require('fs/promises');
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
 
-const contactsPath = path.resolve(__dirname, 'contacts.json');
+const contactsPath = path.join(process.cwd(), "db", 'contacts.json');
 
 async function listContacts() {
     try {
@@ -47,9 +47,24 @@ async function listContacts() {
 return null; 
     }
 
-    export default {
+    async function updateContact(contactId, updatedData) {
+      const contacts = await listContacts();
+      const index = contacts.findIndex((c) => c.id === contactId);
+      
+      if (index !== -1) {
+          const updatedContact = { ...contacts[index], ...updatedData }; 
+          contacts[index] = updatedContact;
+  
+          await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2)); 
+          return updatedContact; 
+      }
+      return null; 
+  }
+
+    export {
         listContacts,
         getContactById,
         addContact,
         removeContact, 
+        updateContact,
     }
