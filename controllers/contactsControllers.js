@@ -1,6 +1,6 @@
 import express from 'express';
 import Joi from 'joi';
-import {listContacts, getContactById, addContact, removeContact, updateContact} from '../services/contactsServices.js';
+import {listContacts, getContactById, addContact, removeContact, updateContactInfo} from '../services/contactsServices.js';
 
 import HttpError from '../helpers/HttpError.js';
 import validateBody from '../helpers/validateBody.js';
@@ -78,7 +78,7 @@ export const updateContact = async (req, res, next) => {
       return res.status(400).json({ message: 'Body must have at least one field' });
     }
 
-    const updatedContact = await contactsService.updateContact(id, updatedData);
+    const updatedContact = await updateContactInfo(id, updatedData);
     if (updatedContact) {
       res.status(200).json(updatedContact);
     } else {
