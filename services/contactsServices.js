@@ -47,7 +47,7 @@ async function listContacts() {
 return null; 
     }
 
-    async function updateContact(contactId, updatedData) {
+    async function updateContactInfo(contactId, updatedData) {
       const contacts = await listContacts();
       const index = contacts.findIndex((c) => c.id === contactId);
       
@@ -66,5 +66,5 @@ return null;
         getContactById,
         addContact,
         removeContact, 
-        updateContact,
+        updateContactInfo,
     }
