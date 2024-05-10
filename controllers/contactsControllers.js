@@ -66,7 +66,7 @@ export const createContact = async (req, res, next) => {
         const newContact = await addContact(name, email, phone);
         res.status(201).json(newContact);
       } catch (error) {
-        next(HttpError(500, 'Error creating contact'));
+        next(error);
       }
 };
 
