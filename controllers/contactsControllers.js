@@ -88,3 +88,23 @@ export const updateContact = async (req, res, next) => {
     next(HttpError(500, 'Error updating contact'));
   }
 };
+
+export const updateFavoriteStatus = async (req, res, next) => {
+  try {
+    const { contactId } = req.params;
+    const { favorite } = req.body;
+
+    const contact = await getContactById(contactId);
+
+    if (!contact) {
+      return res.status(404).json({ message: "Not found" });
+    }
+
+    contact.favorite = favorite;
+    await contact.save();
+
+    res.status(200).json(contact);
+  } catch (error) {
+    next(new HttpError(500, 'Error updating favorite status'));
+  }
+};
