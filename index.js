@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const DB_URI = `mongodb+srv://levyulia0912:AGncjEyfIcTggGHn@cluster0.dfvjimf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+const { DB_URI } = process.env;
 
 async function run() {
   try {
