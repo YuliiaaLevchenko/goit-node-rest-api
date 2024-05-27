@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import User from "../models/user.js";
+import User from "../schemas/user.js";
 
 async function register(req, res, next) {
   const { name, email, password } = req.body;
@@ -77,8 +77,33 @@ async function logout(req, res, next) {
   }
 }
 
+async function current(req, res, next) {
+    try {
+      if (!req.user || !req.user.id) {
+        return res.status(400).json({ message: 'Invalid user request' });
+      }
+  
+      const { id } = req.user;
+  
+      const user = await User.findById(id).select('-password -__v');
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      res.json({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 export default {
   register,
   login,
   logout,
+  current,
 };
