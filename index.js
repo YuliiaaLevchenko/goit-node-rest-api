@@ -1,6 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { app } from './app.js';
+import app from './app.js';
 
 
 const { DB_URI } = process.env.DB_URI;
