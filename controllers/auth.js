@@ -101,9 +101,9 @@ async function current(req, res, next) {
     }
   }
 
-export default {
+export {
   register,
   login,
   logout,
-  current,
+  current as getCurrentUser,
 };
